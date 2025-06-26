@@ -1,76 +1,86 @@
+#include <limits>
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
 
+// Structure to store device info
+struct Device {
+    string name;
+    double annualEnergySaved;
+};
+
+// Input validation
+double getValidatedInput(string prompt) {
+    double value;
+
+    while (true) {
+        cout << prompt;
+        cin >> value;
+
+        if (cin.fail() || value <= 0) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input. Please enter a positive number.\n";
+        } else {
+            cin.ignore(1000, '\n');
+            return value;
+        }
+    }
+}
+
 int main() {
-    string deviceName;
-    double wattage;
-    double hoursPerDay;
-    double reductionPercent;
-    double dailySavedEnergy;
-    double annualSavedEnergy;
-    double totalAnnualEnergySaved = 0.0;
+    Device devices[100];  // Fixed-size array
+    int count = 0;
+    double wattage, hoursPerDay, reductionPercent;
+    double dailySavedEnergy, annualSavedEnergy, totalAnnualEnergySaved = 0.0;
     char choice;
 
-    vector<string> deviceList;
-    vector<double> energyList;
-
-    cout << "🌱 Welcome to the Green City Smart Living - Energy Saving Calculator!\n";
+    cout << "Welcome to the Green City Smart Living - Energy Saving Calculator!\n";
     cout << "---------------------------------------------------------------------\n";
 
     do {
-        // Input section
+        Device device;
+
         cout << "\nEnter the name of your device (e.g., Air Conditioner): ";
-        cin.ignore();
-        getline(cin, deviceName);
+        getline(cin, device.name);
 
-        cout << "Enter the device power consumption in watts (W): ";
-        cin >> wattage;
+        wattage = getValidatedInput("Enter the device power consumption in watts (W): ");
+        hoursPerDay = getValidatedInput("Enter the number of hours you use it per day: ");
+        reductionPercent = getValidatedInput("Enter the reduction percentage (e.g., 20 for 20%): ");
 
-        cout << "Enter the number of hours you use it per day: ";
-        cin >> hoursPerDay;
-
-        cout << "Enter the percentage of usage reduction you'd like to simulate (e.g., 20 for 20%): ";
-        cin >> reductionPercent;
-
-        // Calculation
+        // Calculate savings
         double originalUsage = wattage * hoursPerDay;
         double reducedUsage = originalUsage * (reductionPercent / 100.0);
-        dailySavedEnergy = reducedUsage / 1000.0; // kWh
+        dailySavedEnergy = reducedUsage / 1000.0;
         annualSavedEnergy = dailySavedEnergy * 365;
 
+        device.annualEnergySaved = annualSavedEnergy;
+        devices[count++] = device;
         totalAnnualEnergySaved += annualSavedEnergy;
-        deviceList.push_back(deviceName);
-        energyList.push_back(annualSavedEnergy);
 
-        // Result for this item
-        cout << "\nEnergy Saving Summary for: " << deviceName << endl;
-        cout << "---------------------------------------------------------------\n";
+        cout << "\nEnergy Saving Summary for: " << device.name << endl;
         cout << "Daily energy saved: " << dailySavedEnergy << " kWh\n";
         cout << "Estimated yearly energy saved: " << annualSavedEnergy << " kWh\n";
 
-        if (annualSavedEnergy > 100) {
+        if (device.annualEnergySaved > 100)
             cout << "Great job! You're making a big impact on the environment.\n";
-        } else {
+        else
             cout << "Every small step counts! Keep up the effort.\n";
-        }
 
-        // Ask if user wants to continue
         cout << "\nDo you want to enter another device? (Y/N): ";
         cin >> choice;
+        cin.ignore();
+    } while ((choice == 'Y' || choice == 'y') && count < 100);
 
-    } while (choice == 'Y' || choice == 'y');
-
-    // Final summary
-    cout << "\nSummary of All Devices and Energy Saved:\n";
+    // Summary
+    cout << "\nSummary of All Devices:\n";
     cout << "---------------------------------------------------------------\n";
-    for (size_t i = 0; i < deviceList.size(); ++i) {
-        cout << "- " << deviceList[i] << ": " << energyList[i] << " kWh/year\n";
+    for (int i = 0; i < count; ++i) {
+        cout << "- " << devices[i].name << ": " << devices[i].annualEnergySaved << " kWh/year\n";
     }
     cout << "---------------------------------------------------------------\n";
     cout << "Total estimated energy saved annually: " << totalAnnualEnergySaved << " kWh\n";
-    cout << "Thank you for contributing to a greener future! 🌿\n";
+    cout << "Thank you for contributing to a greener future! \n";
 
     return 0;
 }
