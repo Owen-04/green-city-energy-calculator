@@ -23,11 +23,14 @@ Features
 3. User can repeat for multiple devices
 4. Summary report is shown at the end
 Enter the name of your device (e.g., Air Conditioner): Laptop
+
 Enter the device power consumption in watts (W): 100
+
 Enter the number of hours you use it per day: 5
+
 Enter the reduction percentage (e.g., 20 for 20%): 30
 
-📊 Energy Saving Summary for: Laptop
+Energy Saving Summary for: Laptop
 Daily energy saved: 0.15 kWh
 Estimated yearly energy saved: 54.75 kWh
 
