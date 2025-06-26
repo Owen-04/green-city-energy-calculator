@@ -45,15 +45,15 @@ int main() {
         energyList.push_back(annualSavedEnergy);
 
         // Result for this item
-        cout << "\n📊 Energy Saving Summary for: " << deviceName << endl;
+        cout << "\nEnergy Saving Summary for: " << deviceName << endl;
         cout << "---------------------------------------------------------------\n";
         cout << "Daily energy saved: " << dailySavedEnergy << " kWh\n";
         cout << "Estimated yearly energy saved: " << annualSavedEnergy << " kWh\n";
 
         if (annualSavedEnergy > 100) {
-            cout << "🌍 Great job! You're making a big impact on the environment.\n";
+            cout << "Great job! You're making a big impact on the environment.\n";
         } else {
-            cout << "🌱 Every small step counts! Keep up the effort.\n";
+            cout << "Every small step counts! Keep up the effort.\n";
         }
 
         // Ask if user wants to continue
@@ -63,7 +63,7 @@ int main() {
     } while (choice == 'Y' || choice == 'y');
 
     // Final summary
-    cout << "\n🧾 Summary of All Devices and Energy Saved:\n";
+    cout << "\nSummary of All Devices and Energy Saved:\n";
     cout << "---------------------------------------------------------------\n";
     for (size_t i = 0; i < deviceList.size(); ++i) {
         cout << "- " << deviceList[i] << ": " << energyList[i] << " kWh/year\n";
