@@ -1,0 +1,61 @@
+<!--
+How to build and run this project:
+
+1. Install Emscripten:
+   - Download and install Emscripten SDK from https://emscripten.org/docs/getting_started/downloads.html
+   - Follow the official instructions to activate and set up the environment.
+
+2. Open a terminal and navigate to your project directory:
+   cd "c:\Users\yan85\OneDrive - mmu.edu.my\LDCW6123 FUNDAMENTALS OF DIGITAL COMP\project\green-city-energy-calculator"
+
+3. Compile the C++ code to WebAssembly:
+   emcc Enery_Visual.cpp -o Enery_Visual.js -s MODULARIZE=1 -s 'EXPORT_NAME="Module"' --bind
+
+   This will generate Enery_Visual.js and Enery_Visual.wasm.
+
+4. Start a local web server (required because browsers block file:// access for WASM):
+   - If you have Python 3 installed, run:
+     python -m http.server 8080
+   - Or, if you have Node.js installed, you can use:
+     npx serve .
+
+5. Open your browser and go to:
+   http://localhost:8080
+
+6. Use the web interface to input values and see the results.
+
+Troubleshooting:
+- Make sure Enery_Visual.js and Enery_Visual.wasm are in the same folder as index.html.
+- If you change the C++ code, re-run the emcc command to rebuild.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Green City Energy Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        label, input { display: block; margin: 0.5em 0; }
+        #result { margin-top: 1em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Green City Energy Calculator</h1>
+    <label>
+        Appliance Wattage (W):
+        <input type="number" id="wattage" value="100">
+    </label>
+    <label>
+        Hours Used Per Day:
+        <input type="number" id="hoursPerDay" value="5">
+    </label>
+    <label>
+        Reduction Percentage (%):
+        <input type="number" id="reductionPercent" value="20">
+    </label>
+    <button id="calculateBtn">Calculate Annual Energy Saved</button>
+    <div id="result"></div>
+    <script src="Enery_Visual.js"></script>
+    <script src="visual.js"></script>
+</body>
+</html>

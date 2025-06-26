@@ -15,3 +15,5 @@ double calculate_annual_energy_saved(double wattage, double hoursPerDay, double 
 EMSCRIPTEN_BINDINGS(energy_module) {
     function("calculate_annual_energy_saved", &calculate_annual_energy_saved);
 }
+
+// This file is compiled to WebAssembly and provides calculation logic for the web UI.
