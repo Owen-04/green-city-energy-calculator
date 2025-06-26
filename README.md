@@ -31,7 +31,9 @@ Enter the number of hours you use it per day: 5
 Enter the reduction percentage (e.g., 20 for 20%): 30
 
 Energy Saving Summary for: Laptop
+
 Daily energy saved: 0.15 kWh
+
 Estimated yearly energy saved: 54.75 kWh
 
 Add another device? (Y/N): n
