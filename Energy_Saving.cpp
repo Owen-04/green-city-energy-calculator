@@ -10,22 +10,54 @@ struct Device {
 };
 
 // Input validation
-double getValidatedInput(string prompt) {
+double getValidatedInput(string prompt,string type) {
     double value;
+    if(type=="W"){
+        while (true) {
+            cout << prompt;
+            cin >> value;
 
-    while (true) {
-        cout << prompt;
-        cin >> value;
-
-        if (cin.fail() || value <= 0) {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid input. Please enter a positive number.\n";
-        } else {
-            cin.ignore(1000, '\n');
-            return value;
+            if (cin.fail() || value <= 0) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Invalid input. Please enter a positive number.\n";
+            } else {
+                cin.ignore(1000, '\n');
+                return value;
+            }
         }
     }
+    else if(type=="hour"){
+        while (true) {
+            cout << prompt;
+            cin >> value;
+
+            if (cin.fail() || value <= 0 || value >24) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Invalid input. Please enter a valid hour number please.\n";
+            } else {
+                cin.ignore(1000, '\n');
+                return value;
+            }
+        }
+    }
+    else if(type=="Percentage"){
+        while (true) {
+            cout << prompt;
+            cin >> value;
+
+            if (cin.fail() || value <= 0 || value >100) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Invalid input. Please enter a valid percentage.\n";
+            } else {
+                cin.ignore(1000, '\n');
+                return value;
+            }
+        }
+    }
+
 }
 
 int main() {
@@ -44,9 +76,9 @@ int main() {
         cout << "\nEnter the name of your device (e.g., Air Conditioner): ";
         getline(cin, device.name);
 
-        wattage = getValidatedInput("Enter the device power consumption in watts (W): ");
-        hoursPerDay = getValidatedInput("Enter the number of hours you use it per day: ");
-        reductionPercent = getValidatedInput("Enter the reduction percentage (e.g., 20 for 20%): ");
+        wattage = getValidatedInput("Enter the device power consumption in watts (W): ","W");
+        hoursPerDay = getValidatedInput("Enter the number of hours you use it per day: ","hour");
+        reductionPercent = getValidatedInput("Enter the reduction percentage (e.g., 20 for 20%): ","Percentage");
 
         // Calculate savings
         double originalUsage = wattage * hoursPerDay;
